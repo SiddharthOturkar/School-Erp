@@ -1,0 +1,16 @@
+.StandardDiv
+{
+    width: 50%;
+    margin: 0 200 0 200;
+    /* border: 2px solid red; */
+    text-align: center;
+    align-items: center;
+}
+.StandardName
+{
+    font-size: 20px;
+}
+.SecondRow
+{
+    margin-top: 30px;
+}
