@@ -1,15 +1,27 @@
-// import logo from './logo.svg';
+import {createBrowserRouter,RouterProvider} from 'react-router-dom';
 import './App.css';
 import 'antd/dist/reset.css';
 import ClassStandards from './components/ClassStandards';
+import FourthClass from './components/StandardDashboard/FourthClass';
+import StudentsCompo from './components/StudentsCompo';
+import SubjectsCompo from './components/SubjectsCompo';
 // import {Button} from  'antd';
+
+const router = createBrowserRouter([
+  {path:'/',element:<ClassStandards/>},
+  {path:'/FourthStandard/*',element:<FourthClass/>},
+  {path:'/StudentsCompo',element:<StudentsCompo/>},
+  {path:'/SubjectsCompo',element:<SubjectsCompo/>},
+
+
+]);
+
 
 function App() {
   return (
-    <div className="App-header">
-      <h3>Enter a Class</h3>
+    <div>
       {/* <Button type="primary">My Antd Button</Button> */}
-      <ClassStandards/>
+      <RouterProvider router={router}/>
    </div>
   );
 }
