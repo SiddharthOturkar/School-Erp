@@ -9,9 +9,25 @@
     font-weight: bold;
     border: 1px solid black; 
 }
+.Schoolerp
+{
+    height: 90px;
+}
+.siderStyle h4
+{
+    color: white;
+    background-color: black;
+    margin-top: -30px;
+}
 
 .headerStyle
 {
     font-weight: bold;
     font-size: 20px;
+}
+
+.dashboard
+{
+    background-color: rgb(77, 118, 207);
+    
 }

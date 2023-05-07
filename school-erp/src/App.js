@@ -5,6 +5,7 @@ import ClassStandards from './components/ClassStandards';
 import FourthClass from './components/StandardDashboard/FourthClass';
 import StudentsCompo from './components/StudentsCompo';
 import SubjectsCompo from './components/SubjectsCompo';
+import DropdownCompo from './components/StandardDashboard/DropdownCompo'
 // import {Button} from  'antd';
 
 const router = createBrowserRouter([
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
   {path:'/FourthStandard/*',element:<FourthClass/>},
   {path:'/StudentsCompo',element:<StudentsCompo/>},
   {path:'/SubjectsCompo',element:<SubjectsCompo/>},
+  {path:'/DropdownCompo',element:<DropdownCompo/>},
 
 
 ]);
