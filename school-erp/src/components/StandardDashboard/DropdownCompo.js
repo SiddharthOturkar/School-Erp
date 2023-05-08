@@ -1,29 +1,31 @@
 
 import { DownOutlined } from '@ant-design/icons/lib/icons'
 import { Dropdown, Space } from "antd";
+import { Link } from 'react-router-dom';
+
 const items = [
   {
-    label: <a href="https://www.antgroup.com">Class 4<sup>th</sup></a>,
+    label: <Link to="/FourthStandard">Class 4<sup>th</sup></Link>,
     key: '/FourthStandard',
   },
   {
-    label: <a href="https://www.aliyun.com">Class 5<sup>th</sup></a>,
+    label: <Link to="/FifthStandard">Class 5<sup>th</sup></Link>,
     key: '/FifthStandard',
   },
   {
-    label: <a href="https://www.aliyun.com">Class 6<sup>th</sup></a>,
+    label: <Link to="/SixthStandard">Class 6<sup>th</sup></Link>,
     key: '/SixthStandard',
   },
   {
-    label: <a href="https://www.antgroup.com">Class 7<sup>th</sup></a>,
+    label: <Link to="/SeventhStandard">Class 7<sup>th</sup></Link>,
     key: '/SeventhStandard',
   },
   {
-    label: <a href="https://www.aliyun.com">Class 8<sup>th</sup></a>,
+    label: <Link to="/EighthStandard">Class 8<sup>th</sup></Link>,
     key: '/EighthStandard',
   },
   {
-    label: <a href="https://www.aliyun.com">Class 9<sup>th</sup></a>,
+    label:<Link to="/NinthStandard">Class 9<sup>th</sup></Link>,
     key: '/NinthStandard',
   },
 ];
@@ -37,12 +39,12 @@ function DropdownCompo() {
     }}
     trigger={['click']}
   >
-    <a onClick={(e) => e.preventDefault()}>
+    <Link onClick={(e) => e.preventDefault()}>
       <Space>
         Class 4<sup>th</sup>
         <DownOutlined />
       </Space>
-    </a>
+    </Link>
   </Dropdown>
             </div>
     )
