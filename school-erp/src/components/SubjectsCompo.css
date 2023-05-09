@@ -22,12 +22,68 @@
 
 .headerStyle
 {
+    display: flex;
+    flex-direction: row;
     font-weight: bold;
     font-size: 20px;
-}
 
+}
+.subbtn
+{
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+}
 .subjects
 {
     background-color: rgb(77, 118, 207);
     
+}
+
+.contentStyle
+{
+    padding-left: 40px;
+}
+.contentStyle h2 
+{
+    margin-top: -20px;
+    margin-bottom: -40px;
+}
+
+.coresub .ant-tag
+{
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+
+.contentStyle
+{
+    padding-left: 40px;
+}
+.contentStyle1 h2 
+{
+    margin-top: -20px;
+    margin-bottom: -40px;
+}
+
+.contentStyle1 h2 
+{
+    margin-top: -20px;
+    margin-bottom: -40px;
+}
+
+.additionalsub .ant-tag
+{
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.placeholder1
+{
+    text-align: center;
+    color: grey;
+    font-size: 20px;
 }

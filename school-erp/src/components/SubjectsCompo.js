@@ -1,9 +1,9 @@
 import { Layout } from "antd";
 import { Header, Content } from "antd/es/layout/layout";
-import { Menu } from "antd";
+import { Menu,Button, Space, Tag   } from "antd";
 import DropdownCompo from "./StandardDashboard/DropdownCompo"
 
-import { DashboardOutlined, UserOutlined, UnorderedListOutlined} from '@ant-design/icons/lib/icons'
+import { DashboardOutlined, PlusOutlined,UserOutlined, UnorderedListOutlined} from '@ant-design/icons/lib/icons'
 import "./SubjectsCompo.css";
 import { useNavigate } from "react-router-dom";
 
@@ -27,10 +27,10 @@ const headerStyle = {
   backgroundColor: '#fff',
 };
 const contentStyle = {
-  textAlign: 'center',
+  // textAlign: 'center',
   minHeight: 120,
   lineHeight: '120px',
-  color: 'grey',
+  color: 'black',
   backgroundColor: '#fff',
 
 };
@@ -56,11 +56,27 @@ function StudentsCompo() {
         <Layout>
           <Header style={headerStyle} className="headerStyle">
           <DropdownCompo/>
+          <Button type="primary" className="subbtn"><PlusOutlined/>Add Subject</Button>
           </Header>
           <hr></hr>
-          <Content style={contentStyle}>
-          <h1> No Data </h1>
+          <Content style={contentStyle} className="contentStyle">
+          <h2>Core Subjects</h2>
+          <hr/>
+            <Space size={[40, 'small']} wrap className="coresub">
+              <Tag bordered={false}>Hindi</Tag>
+              <Tag bordered={false}>English</Tag>
+              <Tag bordered={false}>Maths</Tag>
+              <Tag bordered={false}>Science</Tag>
+              <Tag bordered={false}>Social Studies</Tag>
+            </Space>
+            <Content style={contentStyle} className="additionalsub">
+          <h2>Additional Subjects</h2>
+          <hr/>
+          <h1 className="placeholder1">No Subjects</h1>
           </Content>
+          </Content>
+
+          
         </Layout>
       </Layout>
     </div>
