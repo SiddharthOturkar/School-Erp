@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import { Header, Content } from "antd/es/layout/layout";
 import { Menu,Button, Space, Tag   } from "antd";
 import DropdownCompo from "./StandardDashboard/DropdownCompo"
-
+import AddsubModal from "./AddsubModal";
 import { DashboardOutlined, PlusOutlined,UserOutlined, UnorderedListOutlined} from '@ant-design/icons/lib/icons'
 import "./SubjectsCompo.css";
 import { useNavigate } from "react-router-dom";
@@ -56,7 +56,7 @@ function StudentsCompo() {
         <Layout>
           <Header style={headerStyle} className="headerStyle">
           <DropdownCompo/>
-          <Button type="primary" className="subbtn"><PlusOutlined/>Add Subject</Button>
+          <div className="subbtn"><AddsubModal/></div>
           </Header>
           <hr></hr>
           <Content style={contentStyle} className="contentStyle">
@@ -73,6 +73,7 @@ function StudentsCompo() {
           <h2>Additional Subjects</h2>
           <hr/>
           <h1 className="placeholder1">No Subjects</h1>
+          
           </Content>
           </Content>
 

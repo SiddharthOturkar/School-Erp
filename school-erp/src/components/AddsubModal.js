@@ -1,13 +1,14 @@
 import { Button,Modal,Input } from "antd";
 import { useState } from "react";
 import "./AddsubModal.css"
+import {PlusOutlined} from '@ant-design/icons/lib/icons'
 
 function AddsubModal() {
   const [modal2Open, setModal2Open] = useState(false);
     return (
         <>
       <Button type="primary" onClick={() => setModal2Open(true)}>
-       ABC
+      <PlusOutlined/>Add Subject
       </Button>
      
       <Modal
