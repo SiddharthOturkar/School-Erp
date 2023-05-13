@@ -1,9 +1,9 @@
 import { Layout } from "antd";
 import { Header, Content } from "antd/es/layout/layout";
-import { Menu,Button, Space, Tag   } from "antd";
+import { Menu,   Space, Tag   } from "antd";
 import DropdownCompo from "./StandardDashboard/DropdownCompo"
 import AddsubModal from "./AddsubModal";
-import { DashboardOutlined, PlusOutlined,UserOutlined, UnorderedListOutlined} from '@ant-design/icons/lib/icons'
+import { DashboardOutlined, UserOutlined, UnorderedListOutlined} from '@ant-design/icons/lib/icons'
 import "./SubjectsCompo.css";
 import { useNavigate } from "react-router-dom";
 

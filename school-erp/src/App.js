@@ -12,6 +12,7 @@ import SeventhClass from './components/StandardDashboard/SeventhClass';
 import EighthClass from './components/StandardDashboard/EighthClass';
 import NinthClass from './components/StandardDashboard/NinthClass';
 import AddsubModal from './components/AddsubModal';
+import CrudOperation from './components/CrudOperation'
 // import {Button} from  'antd';
 
 const router = createBrowserRouter([
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
   {path:'/EighthStandard',element:<EighthClass/>},
   {path:'/NinthStandard',element:<NinthClass/>},
   {path:'/AddsubModal',element:<AddsubModal/>},
+  {path:'/CrudOperation',element:<CrudOperation/>},
+
 
 
 

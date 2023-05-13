@@ -1,0 +1,12 @@
+.subject-list {
+    /* border: 1px solid black; */
+    /* border-radius: 5px; */
+    width: 10%;
+    height: 30px;
+    background: grey;
+    text-align: center;
+    list-style-type: none;
+    margin: 20px;
+    font-size: 20px;
+  }
+  
