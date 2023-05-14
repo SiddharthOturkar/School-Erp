@@ -26,15 +26,47 @@
     font-size: 20px;
 }
 
+.maindiv
+{
+    align-items: start;
+    text-align: start;
+}
 .students
 {
     background-color: rgb(77, 118, 207);
     
 }
-
+.mainfields
+{
+    margin-left: 40px;
+    font-weight: bold;
+    
+}
 .inputcss
 {
+    position: relative;
     text-align: left;
     width: 400px;
     height: 30px;
+    left: 40px;
+}
+.inputcss1
+{
+    position: relative;
+    text-align: left;
+    width: 400px;
+    height: 30px;
+    left: 85px;
+}
+.inputcss2
+{
+    position: relative;
+    text-align: left;
+    width: 200px;
+    height: 30px;
+    left: 65px;
+}
+.addbtn
+{
+    margin-left: 40px;
 }
