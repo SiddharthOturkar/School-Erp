@@ -2,7 +2,7 @@ import { Layout } from "antd";
 import { Header, Content } from "antd/es/layout/layout";
 import { Menu, Tabs, Input, Form, Button, Select } from "antd";
 import DropdownCompo from "./StandardDashboard/DropdownCompo"
-
+import { useState } from "react";
 import { DashboardOutlined, UserOutlined, UnorderedListOutlined } from '@ant-design/icons/lib/icons'
 import "./StudentsCompo.css";
 import { useNavigate } from "react-router-dom";
@@ -40,11 +40,30 @@ const contentStyle = {
 
 function StudentsCompo() {
   const { TabPane } = Tabs;
-  const handleAdd = (values) => {
+  const [enteredUsername, setenteredUsername]=useState('');
+  const [enteredroll, setenteredroll]=useState('');
+
+
+  const handleAdd = (event) => {
     // Handle form submission with the entered values
-    console.log(values);
+    event.preventDefault();
+    console.log(enteredUsername,enteredroll);
+    setenteredUsername('');
+    setenteredroll('');
   };
+
+  const usernameChangeHandler = (event)=>{
+    setenteredUsername(event.target.value);
+  }
+
+  const rollChangeHandler = (event)=>{
+    setenteredroll(event.target.value);
+  }
   const navigate = useNavigate()
+
+  // const submitdetails =(event)=>{
+  //   console.log(event);
+  // }
   return (
 
     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -69,14 +88,15 @@ function StudentsCompo() {
           <Content style={contentStyle}>
             <Tabs onChange={onChange} type="card">
               <TabPane tab="Add Students" key="add-students" className="maindiv">
-                <Form onFinish={handleAdd}>
+                <Form onSubmit={handleAdd}>
                   <Form.Item
                     label="Student Name"
                     name="studentName"
+                    htmlFor="studentName"
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter student name and try again' }]}
                   >
-                    <Input size="small" className="inputcss" />
+                    <Input id="studentName" value={enteredUsername} type="text" size="small" className="inputcss" onChange={usernameChangeHandler} />
                   </Form.Item>
                   <Form.Item
                     label="Roll No"
@@ -84,138 +104,138 @@ function StudentsCompo() {
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter a valid roll no and try again' }]}
                   >
-                    <Input className="inputcss1" />
+                    <Input className="inputcss1" value={enteredroll} onChange={rollChangeHandler}/>
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" className="addbtn">ADD</Button>
+                    <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAdd}>ADD</Button>
                   </Form.Item>
                 </Form>
               </TabPane>
 
 
               <TabPane tab="Add Marks" key="add-marks" className="maindiv">
-  <Form onFinish={handleAdd}>
-    <Form.Item
-      label="Select a Student"
-      name="studentName"
-      className="mainfields"
-      // rules={[{ required: true }]}
-    >
-      <Select
-      className="inputcss"
-        showSearch
-        style={{
-          width: 200,
-        }}
-        placeholder="Select"
-        optionFilterProp="children"
-        filterOption={(input, option) =>
-          (option?.label ?? "").includes(input)
-        }
-        filterSort={(optionA, optionB) =>
-          (optionA?.label ?? "").toLowerCase().localeCompare(
-            (optionB?.label ?? "").toLowerCase()
-          )
-        }
-        options={[
-          {
-            value: "1",
-            label: "Student A",
-          },
-          {
-            value: "2",
-            label: "Student B",
-          },
-          {
-            value: "3",
-            label: "Student C",
-          },
-          {
-            value: "4",
-            label: "Student D",
-          },
-          {
-            value: "5",
-            label: "Student E",
-          },
-          {
-            value: "6",
-            label: "Student F",
-          },
-        ]}
-      />
-    </Form.Item>
-    <Form.Item
-      label="Select a Subject"
-      name="subjectName"
-      className="mainfields"
-      // rules={[{ required: true }]}
-    >
-      <Select
-      className="inputcss"
-        showSearch
-        style={{
-          width: 200,
-        }}
-        placeholder="Select"
-        optionFilterProp="children"
-        filterOption={(input, option) =>
-          (option?.label ?? "").includes(input)
-        }
-        filterSort={(optionA, optionB) =>
-          (optionA?.label ?? "").toLowerCase().localeCompare(
-            (optionB?.label ?? "").toLowerCase()
-          )
-        }
-        options={[
-          {
-            value: "1",
-            label: "Hindi",
-          },
-          {
-            value: "2",
-            label: "English",
-          },
-          {
-            value: "3",
-            label: "Marathi",
-          },
-          {
-            value: "4",
-            label: "Maths",
-          },
-          {
-            value: "5",
-            label: "Science",
-          },
-          {
-            value: "6",
-            label: "Social Studies",
-          },
-        ]}
-      />
-    </Form.Item>
-    <Form.Item
-      label="Enter Marks"
-      name="marks"
-      className="mainfields"
-      rules={[
-        ({ getFieldValue }) => ({
-          required: getFieldValue('studentName') && getFieldValue('subjectName'),
-          message: 'Please enter marks',
-        }),
-      ]}
-      dependencies={['studentName', 'subjectName']}
-    >
-      <Input type="number" min={0} max={100} className="inputcss2" />
-    </Form.Item>
-    <Form.Item>
-      <Button type="primary" htmlType="submit" className="addbtn">
-        ADD
-      </Button>
-    </Form.Item>
-  </Form>
-</TabPane>
+                <Form onFinish={handleAdd}>
+                  <Form.Item
+                    label="Select a Student"
+                    name="studentName"
+                    className="mainfields"
+                  // rules={[{ required: true }]}
+                  >
+                    <Select
+                      className="inputcss"
+                      showSearch
+                      style={{
+                        width: 200,
+                      }}
+                      placeholder="Select"
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        (option?.label ?? "").includes(input)
+                      }
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? "").toLowerCase().localeCompare(
+                          (optionB?.label ?? "").toLowerCase()
+                        )
+                      }
+                      options={[
+                        {
+                          value: "1",
+                          label: "Student A",
+                        },
+                        {
+                          value: "2",
+                          label: "Student B",
+                        },
+                        {
+                          value: "3",
+                          label: "Student C",
+                        },
+                        {
+                          value: "4",
+                          label: "Student D",
+                        },
+                        {
+                          value: "5",
+                          label: "Student E",
+                        },
+                        {
+                          value: "6",
+                          label: "Student F",
+                        },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    label="Select a Subject"
+                    name="subjectName"
+                    className="mainfields"
+                  // rules={[{ required: true }]}
+                  >
+                    <Select
+                      className="inputcss"
+                      showSearch
+                      style={{
+                        width: 200,
+                      }}
+                      placeholder="Select"
+                      optionFilterProp="children"
+                      filterOption={(input, option) =>
+                        (option?.label ?? "").includes(input)
+                      }
+                      filterSort={(optionA, optionB) =>
+                        (optionA?.label ?? "").toLowerCase().localeCompare(
+                          (optionB?.label ?? "").toLowerCase()
+                        )
+                      }
+                      options={[
+                        {
+                          value: "1",
+                          label: "Hindi",
+                        },
+                        {
+                          value: "2",
+                          label: "English",
+                        },
+                        {
+                          value: "3",
+                          label: "Marathi",
+                        },
+                        {
+                          value: "4",
+                          label: "Maths",
+                        },
+                        {
+                          value: "5",
+                          label: "Science",
+                        },
+                        {
+                          value: "6",
+                          label: "Social Studies",
+                        },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item
+                    label="Enter Marks"
+                    name="marks"
+                    className="mainfields"
+                    rules={[
+                      ({ getFieldValue }) => ({
+                        required: getFieldValue('studentName') && getFieldValue('subjectName'),
+                        message: 'Please enter marks',
+                      }),
+                    ]}
+                    dependencies={['studentName', 'subjectName']}
+                  >
+                    <Input type="number" min={0} max={100} className="inputcss2" />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit" className="addbtn">
+                      ADD
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </TabPane>
             </Tabs>
           </Content>
         </Layout>
