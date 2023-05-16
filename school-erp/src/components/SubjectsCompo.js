@@ -3,10 +3,11 @@ import { Header, Content } from "antd/es/layout/layout";
 import { Menu,   Space, Tag   } from "antd";
 import DropdownCompo from "./StandardDashboard/DropdownCompo"
 import AddsubModal from "./AddsubModal";
-import { DashboardOutlined, UserOutlined, UnorderedListOutlined} from '@ant-design/icons/lib/icons'
+import { DashboardOutlined, UserOutlined, UnorderedListOutlined,DeleteTwoTone} from '@ant-design/icons/lib/icons'
 import "./SubjectsCompo.css";
 import { useNavigate } from "react-router-dom";
-
+import { useState,useEffect } from "react";
+import axios from "axios";
 const { Sider } = Layout;
 
 
@@ -36,6 +37,14 @@ const contentStyle = {
 };
 
 function StudentsCompo() {
+  const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
+          setPosts(response.data);
+        });
+      }, []);
+
   const navigate = useNavigate()
   return (
     
@@ -72,8 +81,14 @@ function StudentsCompo() {
             <Content style={contentStyle} className="additionalsub">
           <h2>Additional Subjects</h2>
           <hr/>
-          <h1 className="placeholder1">No Subjects</h1>
-          
+          {/* <h1 className="placeholder1">No Subjects</h1> */}
+
+          <ul className="subList">
+            {posts.map((post) => (
+              <li key={post.id}><Tag key={post.id} bordered={false}>{post.title} <DeleteTwoTone  twoToneColor="red"/></Tag></li>
+            ))}
+          </ul>
+
           </Content>
           </Content>
 

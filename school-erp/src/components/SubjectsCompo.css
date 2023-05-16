@@ -87,3 +87,10 @@
     color: grey;
     font-size: 20px;
 }
+.subList
+{
+    display: flex;
+    gap: 40px;
+    list-style-type: none;
+    margin-left: -40px;
+}

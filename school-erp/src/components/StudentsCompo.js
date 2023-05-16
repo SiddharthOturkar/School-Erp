@@ -6,6 +6,9 @@ import { useState } from "react";
 import { DashboardOutlined, UserOutlined, UnorderedListOutlined } from '@ant-design/icons/lib/icons'
 import "./StudentsCompo.css";
 import { useNavigate } from "react-router-dom";
+import UsersList from "./userList";
+import {useEffect } from "react";
+import axios from "axios";
 
 const { Sider } = Layout;
 const onChange = (key) => {
@@ -43,6 +46,27 @@ function StudentsCompo() {
   const [enteredUsername, setenteredUsername]=useState('');
   const [enteredroll, setenteredroll]=useState('');
 
+  const [posts, setPosts] = useState([]);
+
+  const [usersList,setUsersList]=useState([]);
+  useEffect(() => {
+    axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
+      setPosts(response.data);
+    });
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      title: e.target.title.value,
+      body: e.target.body.value,
+    };
+
+    axios.post("https://retoolapi.dev/FlCaNC/posts", data).then((response) => {
+      setPosts([...posts, response.data]);
+    });
+  };
 
   const handleAdd = (event) => {
     // Handle form submission with the entered values
@@ -61,9 +85,13 @@ function StudentsCompo() {
   }
   const navigate = useNavigate()
 
-  // const submitdetails =(event)=>{
-  //   console.log(event);
-  // }
+  const addUserHandler = (uName,uRoll)=>{
+    setUsersList((prevUsersList)=>{
+      return [...prevUsersList,{name:uName,roll:uRoll}];
+    });
+  }
+
+  // props.onAddUser(enteredUsername,enteredroll);
   return (
 
     <div style={{ display: "flex", flexDirection: "row" }}>
@@ -88,28 +116,29 @@ function StudentsCompo() {
           <Content style={contentStyle}>
             <Tabs onChange={onChange} type="card">
               <TabPane tab="Add Students" key="add-students" className="maindiv">
-                <Form onSubmit={handleAdd}>
+                <Form onSubmit={handleSubmit}>
                   <Form.Item
                     label="Student Name"
-                    name="studentName"
+                    name="title"
                     htmlFor="studentName"
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter student name and try again' }]}
                   >
-                    <Input id="studentName" value={enteredUsername} type="text" size="small" className="inputcss" onChange={usernameChangeHandler} />
+                    <Input id="studentName"   value={enteredUsername} type="text" name="title" size="small" className="inputcss" onChange={usernameChangeHandler} />
                   </Form.Item>
                   <Form.Item
                     label="Roll No"
-                    name="rollNo"
+                    name="body"
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter a valid roll no and try again' }]}
                   >
-                    <Input className="inputcss1" value={enteredroll} onChange={rollChangeHandler}/>
+                    <Input className="inputcss1" type="text" name="body"  value={enteredroll} onChange={rollChangeHandler}/>
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAdd}>ADD</Button>
+                    <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAdd} onAddUser={addUserHandler}>ADD</Button>
                   </Form.Item>
                 </Form>
+                <UsersList users={usersList}></UsersList>
               </TabPane>
 
 
