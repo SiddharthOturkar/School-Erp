@@ -1,9 +1,9 @@
-import { Button,Modal,Input } from "antd";
-import { useState,useEffect } from "react";
+import { Button, Modal, Input } from "antd";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./AddsubModal.css"
-import {PlusOutlined} from '@ant-design/icons/lib/icons'
+import { PlusOutlined } from '@ant-design/icons/lib/icons'
 
 function AddsubModal() {
   // const [subjects, setSubjects] = useState([]);
@@ -31,34 +31,34 @@ function AddsubModal() {
   };
 
   const [modal2Open, setModal2Open] = useState(false);
-    return (
-        <>
+  return (
+    <>
       <Button type="primary" onClick={() => setModal2Open(true)}>
-      <PlusOutlined/>Add Subject
+        <PlusOutlined />Add Subject
       </Button>
-     
+
       <Modal
-  title="Add a Subject"
-  centered
-  open={modal2Open}
-  okText="Add"
-  onOk={handleSubmit}
-  onCancel={() => setModal2Open(false)}
->
-  <hr/>
-  <div className="subjectAdd">
-    <p>Subject:</p>
-    <Input
-      type="text"
-      name="title"
-      value={subjectName}
-      onChange={(e) => setSubjectName(e.target.value)}
-      placeholder="Enter subject name"
-    />
-  </div>
-</Modal>
+        title="Add a Subject"
+        centered
+        open={modal2Open}
+        okText="Add"
+        onOk={handleSubmit}
+        onCancel={() => setModal2Open(false)}
+      >
+        <hr />
+        <div className="subjectAdd">
+          <p>Subject:</p>
+          <Input
+            type="text"
+            name="title"
+            value={subjectName}
+            onChange={(e) => setSubjectName(e.target.value)}
+            placeholder="Enter subject name"
+          />
+        </div>
+      </Modal>
     </>
-    )
+  )
 }
 
 export default AddsubModal;
