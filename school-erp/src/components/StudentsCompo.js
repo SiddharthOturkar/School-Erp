@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import { Header, Content } from "antd/es/layout/layout";
-import { Menu, Tabs, Input, Form, Button, Select } from "antd";
+import { Menu, Tabs, Input, Form, Button, Select,message } from "antd";
 import DropdownCompo from "./StandardDashboard/DropdownCompo"
 import { useState } from "react";
 import { DashboardOutlined, UserOutlined, UnorderedListOutlined } from '@ant-design/icons/lib/icons'
@@ -50,7 +50,7 @@ function StudentsCompo() {
 
   const [usersList,setUsersList]=useState([]);
   useEffect(() => {
-    axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
+    axios.get("https://retoolapi.dev/EnIO7E/data").then((response) => {
       setPosts(response.data);
     });
   }, []);
@@ -59,23 +59,33 @@ function StudentsCompo() {
     e.preventDefault();
 
     const data = {
-      title: e.target.title.value,
-      body: e.target.body.value,
+      Student_Name: e.target.title.value,
+      Student_Roll: e.target.body.value,
     };
 
-    axios.post("https://retoolapi.dev/FlCaNC/posts", data).then((response) => {
+    axios.post("https://retoolapi.dev/EnIO7E/data", data).then((response) => {
       setPosts([...posts, response.data]);
     });
   };
 
-  const handleAdd = (event) => {
-    // Handle form submission with the entered values
-    event.preventDefault();
-    console.log(enteredUsername,enteredroll);
-    setenteredUsername('');
-    setenteredroll('');
+  const handleAdd = () => {
+    const newData = {
+      Student_Name: enteredUsername,
+      Student_Roll: enteredroll
+    };
+  
+    axios.post('https://retoolapi.dev/EnIO7E/data', newData)
+      .then(response => {
+        // Handle the response if needed
+        setenteredUsername('');
+        setenteredroll('');
+        message.success('Click on Yes');
+      })
+      .catch(error => {
+        // Handle the error if needed
+        console.error(error);
+      });
   };
-
   const usernameChangeHandler = (event)=>{
     setenteredUsername(event.target.value);
   }
@@ -124,7 +134,7 @@ function StudentsCompo() {
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter student name and try again' }]}
                   >
-                    <Input id="studentName"   value={enteredUsername} type="text" name="title" size="small" className="inputcss" onChange={usernameChangeHandler} />
+                    <Input id="studentName"   value={enteredUsername} type="text" name="Student_Name" size="small" className="inputcss" onChange={usernameChangeHandler} />
                   </Form.Item>
                   <Form.Item
                     label="Roll No"
@@ -132,7 +142,7 @@ function StudentsCompo() {
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter a valid roll no and try again' }]}
                   >
-                    <Input className="inputcss1" type="text" name="body"  value={enteredroll} onChange={rollChangeHandler}/>
+                    <Input className="inputcss1" type="text" name="Student_Roll"  value={enteredroll} onChange={rollChangeHandler}/>
                   </Form.Item>
                   <Form.Item>
                     <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAdd} onAddUser={addUserHandler}>ADD</Button>
