@@ -1,15 +1,15 @@
 import { Layout } from "antd";
 import { Header, Content } from "antd/es/layout/layout";
-import { Menu, Tabs, Input, Form, Button, Select,message } from "antd";
+import { Menu, Tabs, Input, Form, Button, Select, message } from "antd";
 import DropdownCompo from "./StandardDashboard/DropdownCompo"
-import { useState } from "react";
+// import { useState } from "react";
 import { DashboardOutlined, UserOutlined, UnorderedListOutlined } from '@ant-design/icons/lib/icons'
 import "./StudentsCompo.css";
 import { useNavigate } from "react-router-dom";
 import UsersList from "./userList";
-import {useEffect } from "react";
+// import {useEffect } from "react";
 import axios from "axios";
-
+import React, { useEffect, useState } from "react";
 const { Sider } = Layout;
 const onChange = (key) => {
   console.log(key);
@@ -43,12 +43,28 @@ const contentStyle = {
 
 function StudentsCompo() {
   const { TabPane } = Tabs;
-  const [enteredUsername, setenteredUsername]=useState('');
-  const [enteredroll, setenteredroll]=useState('');
+  const [enteredUsername, setenteredUsername] = useState('');
+  const [enteredroll, setenteredroll] = useState('');
+
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  const fetchStudents = async () => {
+    try {
+      const response = await axios.get("https://retoolapi.dev/EnIO7E/data");
+      setStudents(response.data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  };
+
 
   const [posts, setPosts] = useState([]);
 
-  const [usersList,setUsersList]=useState([]);
+  const [usersList, setUsersList] = useState([]);
   useEffect(() => {
     axios.get("https://retoolapi.dev/EnIO7E/data").then((response) => {
       setPosts(response.data);
@@ -73,7 +89,7 @@ function StudentsCompo() {
       Student_Name: enteredUsername,
       Student_Roll: enteredroll
     };
-  
+
     axios.post('https://retoolapi.dev/EnIO7E/data', newData)
       .then(response => {
         // Handle the response if needed
@@ -86,18 +102,18 @@ function StudentsCompo() {
         console.error(error);
       });
   };
-  const usernameChangeHandler = (event)=>{
+  const usernameChangeHandler = (event) => {
     setenteredUsername(event.target.value);
   }
 
-  const rollChangeHandler = (event)=>{
+  const rollChangeHandler = (event) => {
     setenteredroll(event.target.value);
   }
   const navigate = useNavigate()
 
-  const addUserHandler = (uName,uRoll)=>{
-    setUsersList((prevUsersList)=>{
-      return [...prevUsersList,{name:uName,roll:uRoll}];
+  const addUserHandler = (uName, uRoll) => {
+    setUsersList((prevUsersList) => {
+      return [...prevUsersList, { name: uName, roll: uRoll }];
     });
   }
 
@@ -134,7 +150,7 @@ function StudentsCompo() {
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter student name and try again' }]}
                   >
-                    <Input id="studentName"   value={enteredUsername} type="text" name="Student_Name" size="small" className="inputcss" onChange={usernameChangeHandler} />
+                    <Input id="studentName" value={enteredUsername} type="text" name="Student_Name" size="small" className="inputcss" onChange={usernameChangeHandler} />
                   </Form.Item>
                   <Form.Item
                     label="Roll No"
@@ -142,7 +158,7 @@ function StudentsCompo() {
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter a valid roll no and try again' }]}
                   >
-                    <Input className="inputcss1" type="text" name="Student_Roll"  value={enteredroll} onChange={rollChangeHandler}/>
+                    <Input className="inputcss1" type="text" name="Student_Roll" value={enteredroll} onChange={rollChangeHandler} />
                   </Form.Item>
                   <Form.Item>
                     <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAdd} onAddUser={addUserHandler}>ADD</Button>
@@ -176,32 +192,10 @@ function StudentsCompo() {
                           (optionB?.label ?? "").toLowerCase()
                         )
                       }
-                      options={[
-                        {
-                          value: "1",
-                          label: "Student A",
-                        },
-                        {
-                          value: "2",
-                          label: "Student B",
-                        },
-                        {
-                          value: "3",
-                          label: "Student C",
-                        },
-                        {
-                          value: "4",
-                          label: "Student D",
-                        },
-                        {
-                          value: "5",
-                          label: "Student E",
-                        },
-                        {
-                          value: "6",
-                          label: "Student F",
-                        },
-                      ]}
+                      options={students.map((student) => ({
+                        value: student.Student_ID,
+                        label: student.Student_Name,
+                      }))}
                     />
                   </Form.Item>
                   <Form.Item
