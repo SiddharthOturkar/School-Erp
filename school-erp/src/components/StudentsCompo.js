@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import UsersList from "./userList";
 // import {useEffect } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 const { Sider } = Layout;
 const onChange = (key) => {
   console.log(key);
@@ -45,9 +45,55 @@ function StudentsCompo() {
   const { TabPane } = Tabs;
   const [enteredUsername, setenteredUsername] = useState('');
   const [enteredroll, setenteredroll] = useState('');
-
   const [students, setStudents] = useState([]);
+  const [options, setOptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedOption, setSelectedOption] = useState(null);
 
+  useEffect(() => {
+    axios.get('https://retoolapi.dev/FlCaNC/posts')
+      .then(response => {
+        setOptions(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+const handleOptionSelect = value => {
+    setSelectedOption(value);
+  };
+  const staticOptions = [
+    {
+      class: "4th",
+      label: "Hindi",
+    },
+    {
+      class: "4th",
+      label: "English",
+    },
+    {
+      class: "4th",
+      label: "Maths",
+    },
+    {
+      class: "4th",
+      label: "Science",
+    },
+    {
+      class: "4th",
+      label: "Social Studies",
+    },
+  ];
+
+  // Combine static and fetched options
+  const combinedOptions = [...staticOptions, ...options];
+  const dropdownStyles = {
+    options: {
+      color: 'black',
+    },
+  };
   useEffect(() => {
     fetchStudents();
   }, []);
@@ -220,32 +266,11 @@ function StudentsCompo() {
                           (optionB?.label ?? "").toLowerCase()
                         )
                       }
-                      options={[
-                        {
-                          value: "1",
-                          label: "Hindi",
-                        },
-                        {
-                          value: "2",
-                          label: "English",
-                        },
-                        {
-                          value: "3",
-                          label: "Marathi",
-                        },
-                        {
-                          value: "4",
-                          label: "Maths",
-                        },
-                        {
-                          value: "5",
-                          label: "Science",
-                        },
-                        {
-                          value: "6",
-                          label: "Social Studies",
-                        },
-                      ]}
+                      loading={loading}
+                      value={selectedOption}
+                      options={combinedOptions}
+                      onChange={handleOptionSelect}
+                      dropdownStyle={dropdownStyles}
                     />
                   </Form.Item>
                   <Form.Item
