@@ -49,7 +49,31 @@ function StudentsCompo() {
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
+  // const handleAdd1 = value => {
+  //   setSelectedStudent(value);
+  // };
+
+  const handleAdd1 = (values) => {
+    const { studentName, subjectName, marks } = values;
+    
+    // Create an object with the data to be sent
+    const data = {
+      studentName,
+      subjectName,
+      marks,
+    };
+    axios.post('https://retoolapi.dev/vNCBZv/data', data)
+    .then((response) => {
+      // Handle the API response
+      console.log(response.data);
+    })
+    .catch((error) => {
+      // Handle any errors
+      console.error(error);
+    });
+};
   useEffect(() => {
     axios.get('https://retoolapi.dev/FlCaNC/posts')
       .then(response => {
@@ -61,39 +85,48 @@ function StudentsCompo() {
         setLoading(false);
       });
   }, []);
-const handleOptionSelect = value => {
-    setSelectedOption(value);
-  };
+
   const staticOptions = [
     {
       class: "4th",
+      key: 'Hindi',
+      value: 'Hindi',
       label: "Hindi",
     },
     {
       class: "4th",
+      key: 'English',
+      value: 'English',
       label: "English",
     },
     {
       class: "4th",
+      key: 'Maths',
+      value: 'Maths',
       label: "Maths",
     },
     {
       class: "4th",
+      key: 'Science',
+      value: 'Science',
       label: "Science",
     },
     {
       class: "4th",
+      key: 'Social Studies',
+      value: 'Social Studies',
       label: "Social Studies",
     },
   ];
 
+
+  const handleOptionSelect = value => {
+    setSelectedOption(value);
+  };
+
+
   // Combine static and fetched options
   const combinedOptions = [...staticOptions, ...options];
-  const dropdownStyles = {
-    options: {
-      color: 'black',
-    },
-  };
   useEffect(() => {
     fetchStudents();
   }, []);
@@ -132,8 +165,8 @@ const handleOptionSelect = value => {
 
   const handleAdd = () => {
     const newData = {
-      Student_Name: enteredUsername,
-      Student_Roll: enteredroll
+      value: enteredUsername,
+      key: enteredroll
     };
 
     axios.post('https://retoolapi.dev/EnIO7E/data', newData)
@@ -215,34 +248,34 @@ const handleOptionSelect = value => {
 
 
               <TabPane tab="Add Marks" key="add-marks" className="maindiv">
-                <Form onFinish={handleAdd}>
+                <Form onFinish={handleAdd1}>
                   <Form.Item
                     label="Select a Student"
                     name="studentName"
                     className="mainfields"
-                  // rules={[{ required: true }]}
                   >
                     <Select
                       className="inputcss"
                       showSearch
-                      style={{
-                        width: 200,
-                      }}
-                      placeholder="Select"
+                      style={{ width: 200 }}
+                      placeholder="Select1"
                       optionFilterProp="children"
                       filterOption={(input, option) =>
-                        (option?.label ?? "").includes(input)
+                        (option?.label ?? '').includes(input)
                       }
                       filterSort={(optionA, optionB) =>
-                        (optionA?.label ?? "").toLowerCase().localeCompare(
-                          (optionB?.label ?? "").toLowerCase()
-                        )
+                        (optionA?.label ?? '')
+                          .toLowerCase()
+                          .localeCompare((optionB?.label ?? '').toLowerCase())
                       }
                       options={students.map((student) => ({
-                        value: student.Student_ID,
-                        label: student.Student_Name,
+                        value: student.key,
+                        label: student.value,
                       }))}
+                      value={selectedStudent} // Set the value of the Select component
+                      onChange={setSelectedStudent} // Update the selected value
                     />
+
                   </Form.Item>
                   <Form.Item
                     label="Select a Subject"
@@ -270,7 +303,6 @@ const handleOptionSelect = value => {
                       value={selectedOption}
                       options={combinedOptions}
                       onChange={handleOptionSelect}
-                      dropdownStyle={dropdownStyles}
                     />
                   </Form.Item>
                   <Form.Item
