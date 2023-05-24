@@ -6,7 +6,7 @@ import DropdownCompo from "./DropdownCompo";
 import { DashboardOutlined, UserOutlined, UnorderedListOutlined} from '@ant-design/icons/lib/icons'
 import './FourthClass.css'
 import { useNavigate } from "react-router-dom";
-
+import TableStudent from "../TableStudent";
 const { Sider } = Layout;
 
 
@@ -59,7 +59,9 @@ function FourthClass() {
           </Header>
           <hr></hr>
           <Content style={contentStyle}>
-          <h1> No Data </h1>
+          {/* <h1> No Data </h1> */}
+          <h2>Subject-Wise Total Marks</h2>
+          <TableStudent/>
           </Content>
         </Layout>
       </Layout>
