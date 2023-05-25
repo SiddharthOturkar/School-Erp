@@ -7,6 +7,7 @@ import { DashboardOutlined, UserOutlined, UnorderedListOutlined} from '@ant-desi
 import './FourthClass.css'
 import { useNavigate } from "react-router-dom";
 import TableStudent from "../TableStudent";
+import SubjectTable from "../SubjectTable";
 const { Sider } = Layout;
 
 
@@ -62,6 +63,8 @@ function FourthClass() {
           {/* <h1> No Data </h1> */}
           <h2>Subject-Wise Total Marks</h2>
           <TableStudent/>
+          <h2>Subject-Wise Average Marks & Top Scorers</h2>
+          <SubjectTable />
           </Content>
         </Layout>
       </Layout>
