@@ -1,47 +1,79 @@
-import axios from "axios";
 import { Table } from "antd";
 import React, { useEffect, useState } from "react";
 
 function SubjectTable() {
   const [data, setData] = useState([]);
+  const [studentData, setStudentData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("https://retoolapi.dev/vNCBZv/data")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching subjects:", error);
-      });
+    const studentRoll = JSON.parse(localStorage.getItem("student"));
+    const marksData = JSON.parse(localStorage.getItem("marks"));
+
+    setData(marksData);
+    setStudentData(studentRoll);
   }, []);
+
+  const len = studentData.length;
+
+  const uniqueSubNames = Array.from(new Set(data.map(record => record.subname)));
+
+  const filteredData = uniqueSubNames.map(subname => {
+    const matchingRecords = data.filter(record => record.subname === subname);
+    const totalMarks = matchingRecords.reduce((total, curr) => total + parseInt(curr.marksget), 0);
+    const sortedMarks = matchingRecords.sort((a, b) => b.marksget - a.marksget);
+    return {
+      subname: subname,
+      total: totalMarks,
+      marksget: sortedMarks[0]?.marksget || "-",
+      marksSecHigh: sortedMarks[1]?.marksget || "-",
+      marksThiHigh: sortedMarks[2]?.marksget || "-",
+    };
+  });
 
   const columns = [
     {
       title: "Subject",
-      dataIndex: "subjectName",
-      key: "subjectName",
-      render: (text, record, index) => {
-        if (index === 0 || text !== data[index - 1].subjectName) {
-          return <h3>{text}</h3>;
-        } else {
-          return null;
-        }
+      dataIndex: "subname",
+      key: "subname",
+      render: (text) => {
+        return <h3>{text}</h3>;
       },
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Average Marks",
+      dataIndex: "total",
+      key: "total",
+      render: (text) => {
+        return <h3 style={{ fontWeight: "normal" }}>{Math.round(text / len)}</h3>;
+      },
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Top Scorer Rank 1",
+      dataIndex: "marksget",
+      key: "marksget",
+    },
+    {
+      title: "Top Scorer Rank 2",
+      dataIndex: "marksSecHigh",
+      key: "marksSecHigh",
+    },
+    {
+      title: "Top Scorer Rank 3",
+      dataIndex: "marksThiHigh",
+      key: "marksThiHigh",
     },
   ];
 
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <Table
+      columns={columns}
+      dataSource={filteredData}
+      size="middle"
+      bordered
+      pagination={true}
+      style={{ textAlign: "center", width: "70%", paddingLeft: 50 }}
+    />
+  );
 }
 
 export default SubjectTable;

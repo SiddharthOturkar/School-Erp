@@ -13,7 +13,7 @@ function ClassStandards() {
             <Row gutter={32}> 
                 <Col span={8}>
                     <Link to="/FourthStandard">
-                        <Card  bordered={true} className='StandardName'>
+                        <Card bordered={true} className='StandardName'>
                             <b>4<sup>th</sup></b>
                         </Card>
                     </Link>

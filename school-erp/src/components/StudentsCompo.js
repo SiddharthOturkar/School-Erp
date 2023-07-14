@@ -9,7 +9,9 @@ import { useNavigate } from "react-router-dom";
 import UsersList from "./userList";
 // import {useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AddStudentProvider, { addStudContext } from "./contexts/AddStudentProvider";
+import { addSubContext } from "./contexts/AddSubjectProvider";
 const { Sider } = Layout;
 const onChange = (key) => {
   console.log(key);
@@ -48,43 +50,45 @@ function StudentsCompo() {
   const [students, setStudents] = useState([]);
   const [options, setOptions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState('');
   const [selectedStudent, setSelectedStudent] = useState(null);
 
+  const {addStud} = useContext(addStudContext);
+  const [name,setName] = useState('');
+  const [ roll,setRoll] = useState('');
+  const [marksAdd,setmarksAdd] = useState('');
+  const {subject} = useContext(addSubContext);
+  const {addStudDetails} = useContext(addStudContext);
   // const handleAdd1 = value => {
   //   setSelectedStudent(value);
   // };
+  const {student} = useContext(addStudContext);
+  const handleAdd1 = (e) => {
 
-  const handleAdd1 = (values) => {
-    const { studentName, subjectName, marks } = values;
+    e.preventDefault();
+    addStudDetails(selectedStudent,selectedOption,marksAdd);
+    console.log(selectedStudent);
+    console.log(selectedOption);
+    console.log(marksAdd);
     
-    // Create an object with the data to be sent
-    const data = {
-      studentName,
-      subjectName,
-      marks,
-    };
-    axios.post('https://retoolapi.dev/vNCBZv/data', data)
-    .then((response) => {
-      // Handle the API response
-      console.log(response.data);
-    })
-    .catch((error) => {
-      // Handle any errors
-      console.error(error);
-    });
+    setSelectedOption('');
+    setSelectedStudent('');
+    setmarksAdd('');
+
+   
+    
 };
-  useEffect(() => {
-    axios.get('https://retoolapi.dev/FlCaNC/posts')
-      .then(response => {
-        setOptions(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios.get('https://retoolapi.dev/FlCaNC/posts')
+  //     .then(response => {
+  //       setOptions(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching data:', error);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
   const staticOptions = [
     {
@@ -122,80 +126,87 @@ function StudentsCompo() {
 
   const handleOptionSelect = value => {
     setSelectedOption(value);
+    console.log("the value is :" +value);
   };
 
 
   // Combine static and fetched options
-  const combinedOptions = [...staticOptions, ...options];
-  useEffect(() => {
-    fetchStudents();
-  }, []);
-
-  const fetchStudents = async () => {
-    try {
-      const response = await axios.get("https://retoolapi.dev/EnIO7E/data");
-      setStudents(response.data);
-    } catch (error) {
-      console.error("Error fetching students:", error);
-    }
-  };
-
-
+  // const combinedOptions = [...subject,...staticOptions];
   const [posts, setPosts] = useState([]);
 
   const [usersList, setUsersList] = useState([]);
-  useEffect(() => {
-    axios.get("https://retoolapi.dev/EnIO7E/data").then((response) => {
-      setPosts(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("https://retoolapi.dev/EnIO7E/data").then((response) => {
+  //     setPosts(response.data);
+  //   });
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    addStud(name,roll);
+    console.log(name);
+    console.log(roll);
     const data = {
-      Student_Name: e.target.title.value,
-      Student_Roll: e.target.body.value,
+      Student_Name: name,
+      Student_Roll: roll,
     };
+    
+    setName('');
+    setRoll('');
 
-    axios.post("https://retoolapi.dev/EnIO7E/data", data).then((response) => {
-      setPosts([...posts, response.data]);
-    });
+    
+
+    // axios.post("https://retoolapi.dev/EnIO7E/data", data).then((response) => {
+    //   setPosts([...posts, response.data]);
+    // });
   };
 
   const handleAdd = () => {
-    const newData = {
-      value: enteredUsername,
-      key: enteredroll
-    };
 
-    axios.post('https://retoolapi.dev/EnIO7E/data', newData)
-      .then(response => {
-        // Handle the response if needed
-        setenteredUsername('');
-        setenteredroll('');
-        message.success('Click on Yes');
-      })
-      .catch(error => {
-        // Handle the error if needed
-        console.error(error);
-      });
+    //using context
+    addStud(name,roll);
+    console.log(name);
+    console.log(roll);
+
+    setName('');
+    setRoll('');
+
   };
+
+  const handleAllData = () =>{
+    addStudDetails(selectedStudent,selectedOption,marksAdd);
+    console.log(selectedStudent);
+    console.log(selectedOption);
+    console.log(marksAdd);
+    
+    setSelectedOption('');
+    setSelectedStudent('');
+    setmarksAdd('');
+  }
+
   const usernameChangeHandler = (event) => {
+    setName(event.target.value);
     setenteredUsername(event.target.value);
   }
 
   const rollChangeHandler = (event) => {
+    setRoll(event.target.value);
     setenteredroll(event.target.value);
   }
   const navigate = useNavigate()
 
-  const addUserHandler = (uName, uRoll) => {
-    setUsersList((prevUsersList) => {
-      return [...prevUsersList, { name: uName, roll: uRoll }];
-    });
-  }
+  // const addUserHandler = (uName, uRoll) => {
+  //   setUsersList((prevUsersList) => {
+  //     return [...prevUsersList, { name: uName, roll: uRoll }];
+  //   });
+  // }
 
+  // function addAllData(name, roll, marksAdd)
+  // {
+  //   addStudDetails(name,roll,marksAdd);
+  //   console.log(name + roll + marksAdd);
+  // }
+  
   // props.onAddUser(enteredUsername,enteredroll);
   return (
 
@@ -229,7 +240,7 @@ function StudentsCompo() {
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter student name and try again' }]}
                   >
-                    <Input id="studentName" value={enteredUsername} type="text" name="Student_Name" size="small" className="inputcss" onChange={usernameChangeHandler} />
+                    <Input id="studentName" value={name} type="text" name="Student_Name" size="small" className="inputcss" placeholder="Enter Student Name" onChange={usernameChangeHandler} />
                   </Form.Item>
                   <Form.Item
                     label="Roll No"
@@ -237,10 +248,10 @@ function StudentsCompo() {
                     className="mainfields"
                     rules={[{ required: true, message: 'Please enter a valid roll no and try again' }]}
                   >
-                    <Input className="inputcss1" type="text" name="Student_Roll" value={enteredroll} onChange={rollChangeHandler} />
+                    <Input className="inputcss1" type="text" name="Student_Roll" value={roll} placeholder="Enter Roll No" onChange={rollChangeHandler} />
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAdd} onAddUser={addUserHandler}>ADD</Button>
+                    <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAdd}>ADD</Button>
                   </Form.Item>
                 </Form>
                 <UsersList users={usersList}></UsersList>
@@ -248,7 +259,7 @@ function StudentsCompo() {
 
 
               <TabPane tab="Add Marks" key="add-marks" className="maindiv">
-                <Form onFinish={handleAdd1}>
+                <Form onSubmit={handleAdd1}>
                   <Form.Item
                     label="Select a Student"
                     name="studentName"
@@ -258,7 +269,7 @@ function StudentsCompo() {
                       className="inputcss"
                       showSearch
                       style={{ width: 200 }}
-                      placeholder="Select1"
+                      placeholder="Select"
                       optionFilterProp="children"
                       filterOption={(input, option) =>
                         (option?.label ?? '').includes(input)
@@ -268,15 +279,18 @@ function StudentsCompo() {
                           .toLowerCase()
                           .localeCompare((optionB?.label ?? '').toLowerCase())
                       }
-                      options={students.map((student) => ({
-                        value: student.key,
-                        label: student.value,
+                      options={student.map((student) => ({
+                        value: student.name,
+                        // value: student.id,
+                        label: student.name,
                       }))}
                       value={selectedStudent} // Set the value of the Select component
                       onChange={setSelectedStudent} // Update the selected value
+                      
                     />
 
                   </Form.Item>
+                  
                   <Form.Item
                     label="Select a Subject"
                     name="subjectName"
@@ -301,13 +315,18 @@ function StudentsCompo() {
                       }
                       loading={loading}
                       value={selectedOption}
-                      options={combinedOptions}
+                      // options={combinedOptions}
+                      options={subject.map((sub) => ({
+                        value: sub.title,
+                        // value : sub.id;
+                        label: sub.title,
+                      }))}
                       onChange={handleOptionSelect}
                     />
                   </Form.Item>
                   <Form.Item
                     label="Enter Marks"
-                    name="marks"
+                    name="marks" 
                     className="mainfields"
                     rules={[
                       ({ getFieldValue }) => ({
@@ -317,10 +336,10 @@ function StudentsCompo() {
                     ]}
                     dependencies={['studentName', 'subjectName']}
                   >
-                    <Input type="number" min={0} max={100} className="inputcss2" />
+                    <Input type="number" min={0} max={100} className="inputcss2" value={marksAdd} onChange={(e)=> setmarksAdd(e.target.value)}/>
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" className="addbtn">
+                    <Button type="primary" htmlType="submit" className="addbtn" onClick={handleAllData}>
                       ADD
                     </Button>
                   </Form.Item>

@@ -6,8 +6,9 @@ import AddsubModal from "./AddsubModal";
 import { DashboardOutlined, UserOutlined, UnorderedListOutlined, DeleteTwoTone } from '@ant-design/icons/lib/icons'
 import "./SubjectsCompo.css";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { addSubContext } from "./contexts/AddSubjectProvider";
 const { Sider } = Layout;
 
 
@@ -36,6 +37,7 @@ const contentStyle = {
 
 };
 
+
 const confirm = (postId) => {
   // console.log(e);
   axios.delete(`https://retoolapi.dev/FlCaNC/posts/${postId}`)
@@ -47,28 +49,26 @@ const confirm = (postId) => {
       // Handle error
       console.error('Error deleting post:', error);
     });
-  message.success('Click on Yes');
+  message.success('Clicked on Yes');
 };
 const cancel = (e) => {
   console.log(e);
-  message.error('Click on No');
+  message.error('Clicked on No');
 };
 
 function StudentsCompo() {
+  const {subject} = useContext(addSubContext);
   const [posts, setPosts] = useState([]);
-
-  
-
+  const {removeSub}  = useContext(addSubContext);
   useEffect(() => {
     axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
       setPosts(response.data);
     });
-  }, []);
+  }, [posts]);
 
   const navigate = useNavigate()
-  return (
-
-    <div style={{ display: "flex", flexDirection: "row" }}>
+  return  subject.length ?  
+    ( <div style={{ display: "flex", flexDirection: "row" }}>
       <Layout>
         <Sider style={siderStyle} className="siderStyle">
           <div className="Schoolerp"><h4>School ERP </h4></div>
@@ -102,25 +102,69 @@ function StudentsCompo() {
               <h2>Additional Subjects</h2>
               <hr />
               {/* <h1 className="placeholder1">No Subjects</h1> */}
-
+              
               <ul className="subList">
-                {posts.map((post) => (
+                {subject.map((post) => (
                   <Popconfirm
                     title="Delete the task"
                     description="Delete this subject..Are you sure? "
-                    onConfirm={() => confirm(post.id)}
+                    // onConfirm={() => confirm(post.id)} //using api
+                    onConfirm={() => removeSub(post.id)} //using context
                     onCancel={cancel}
                     okText="Yes"
                     cancelText="No"
-                  ><li key={post.id}><Button type="link"><Tag key={post.id} bordered={false}>{post.title} <DeleteTwoTone twoToneColor="red" /></Tag></Button></li>
+                  >
+                 <li  key={post.id}><Button type="link"><Tag key={post.id} bordered={false}>{post.title} <DeleteTwoTone twoToneColor="red" /></Tag></Button> </li>
                   </Popconfirm>))}
-              </ul>
+              </ul> 
 
             </Content>
           </Content>
         </Layout>
       </Layout>
-    </div>
+    </div> ) : 
+    
+    
+    (( <div style={{ display: "flex", flexDirection: "row" }}>
+      <Layout>
+        <Sider style={siderStyle} className="siderStyle">
+          <div className="Schoolerp"><h4>School ERP </h4></div>
+          <Menu onClick={({ key }) => {
+            navigate(key)
+          }}
+            items={[
+              { label: "Dashboard", key: "/FourthStandard/", icon: <DashboardOutlined /> },
+              { label: "Students", key: "/StudentsCompo", icon: <UserOutlined /> },
+              { label: "Subjects", className: "subjects", key: "/SubjectsCompo", icon: <UnorderedListOutlined /> },
+            ]}>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={headerStyle} className="headerStyle">
+            <DropdownCompo />
+            <div className="subbtn"><AddsubModal /></div>
+          </Header>
+          <hr></hr>
+          <Content style={contentStyle} className="contentStyle">
+            <h2>Core Subjects</h2>
+            <hr />
+            <Space size={[40, 'small']} wrap className="coresub">
+              <Tag bordered={false}>Hindi</Tag>
+              <Tag bordered={false}>English</Tag>
+              <Tag bordered={false}>Maths</Tag>
+              <Tag bordered={false}>Science</Tag>
+              <Tag bordered={false}>Social Studies</Tag>
+            </Space>
+            <Content style={contentStyle} className="additionalsub">
+              <h2>Additional Subjects</h2>
+              <hr />
+              <h1 className="placeholder1">No Subjects</h1>
+            
+            </Content>
+          </Content>
+        </Layout>
+      </Layout>
+    </div>)
   );
 }
 

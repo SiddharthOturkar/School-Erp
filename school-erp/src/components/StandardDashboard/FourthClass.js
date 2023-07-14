@@ -61,9 +61,11 @@ function FourthClass() {
           <hr></hr>
           <Content style={contentStyle}>
           {/* <h1> No Data </h1> */}
-          <h2>Subject-Wise Total Marks</h2>
+          <h2 style={{textAlign:"left", paddingLeft:50, color:"black"}}>Student-Wise Total Marks</h2>
+          <hr style={{marginLeft:50,marginTop:-40, marginBottom: 40, color:"black"}}></hr>
           <TableStudent/>
-          <h2>Subject-Wise Average Marks & Top Scorers</h2>
+          <h2 style={{textAlign:"left", paddingLeft:50, color:"black"}}>Subject-Wise Average Marks & Top Scorers</h2>
+          <hr style={{marginLeft:50,marginTop:-40, marginBottom: 40, color:"black"}}></hr>
           <SubjectTable />
           </Content>
         </Layout>

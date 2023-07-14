@@ -14,6 +14,7 @@ import NinthClass from './components/StandardDashboard/NinthClass';
 import AddsubModal from './components/AddsubModal';
 import CrudOperation from './components/CrudOperation'
 import DataCall from './components/DataCall'
+// import AddSubjectProvider from './components/contexts/AddSubjectProvider';
 // import {Button} from  'antd';
 
 const router = createBrowserRouter([
@@ -30,11 +31,6 @@ const router = createBrowserRouter([
   {path:'/AddsubModal',element:<AddsubModal/>},
   {path:'/CrudOperation',element:<CrudOperation/>},
   {path:'/DataCall',element:<DataCall/>},
-
-
-
-
-
 ]);
 
 
@@ -42,7 +38,9 @@ function App() {
   return (
     <div>
       {/* <Button type="primary">My Antd Button</Button> */}
-      <RouterProvider router={router}/>
+     
+        <RouterProvider router={router}>
+          </RouterProvider>       
    </div>
   );
 }

@@ -1,11 +1,13 @@
 import { Button, Modal, Input } from "antd";
-import { useState, useEffect } from "react";
+import { addSubContext } from "./contexts/AddSubjectProvider";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-
 import "./AddsubModal.css"
 import { PlusOutlined } from '@ant-design/icons/lib/icons'
 
+
 function AddsubModal() {
+  const { addSub } = useContext(addSubContext);
   // const [subjects, setSubjects] = useState([]);
   const [subjectName, setSubjectName] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -17,7 +19,10 @@ function AddsubModal() {
   }, []);
 
   const handleSubmit = () => {
-    // Make an API request to add the subject using Axios
+    addSub(subjectName) //using context
+    console.log(subjectName);
+    setSubjectName('') //clearing the input field
+    // axios api request to post data
     axios.post('https://retoolapi.dev/FlCaNC/posts', { title: subjectName })
       .then(response => {
         // Handle successful response
@@ -47,14 +52,17 @@ function AddsubModal() {
       >
         <hr />
         <div className="subjectAdd">
-          <p>Subject:</p>
-          <Input
-            type="text"
-            name="title"
-            value={subjectName}
-            onChange={(e) => setSubjectName(e.target.value)}
-            placeholder="Enter subject name"
-          />
+          <div style={{display:"flex", flexDirection:'row', marginTop:20}}>
+            <p  style={{textAlign:"center",padding:10}}>Subject:</p>
+            <Input
+              type="text"
+              name="title"
+              value={subjectName}
+              onChange={(e) => setSubjectName(e.target.value)}
+              placeholder="Enter a new subject"
+              style={{height:40}}
+            />
+          </div>
         </div>
       </Modal>
     </>
