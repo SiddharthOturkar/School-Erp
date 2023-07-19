@@ -88,14 +88,8 @@ function StudentsCompo() {
     }));
     setStudentOptions(combinedOptions);
   }, []);
-  // console.log(studentOptions);
-  
-  // const handleAdd1 = (e) => {
-  //     e.preventDefault();
-  //     console.log('hello');
 
-  // };
-
+  //defining method for adding marks, student name and subject
    const handleAllData = (e) => {
 
     if (selectedStudent != null && marksAdd>0 &&   selectedOption!= null ) {
@@ -120,7 +114,7 @@ function StudentsCompo() {
 
   };
 
-
+ //calling method to post student name and roll no.
   const handleAdd = () => {
 
     if (name != null && roll >0 ) {
@@ -152,6 +146,7 @@ function StudentsCompo() {
     setRoll(event.target.value);
     setenteredroll(event.target.value);
   };
+  
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Layout>
