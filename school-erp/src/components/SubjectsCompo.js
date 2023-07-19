@@ -40,45 +40,37 @@ const contentStyle = {
   backgroundColor: "#fff",
 };
 
-const confirm = (postId) => {
-  // console.log(e);
-  axios
-    .delete(`https://retoolapi.dev/FlCaNC/posts/${postId}`)
-    .then((response) => {
-      // Handle successful deletion
-      console.log("Post deleted successfully.");
-    })
-    .catch((error) => {
-      // Handle error
-      console.error("Error deleting post:", error);
-    });
-  message.success("Clicked on Yes");
-};
+// const confirm = (postId) => {
+//   // console.log(e);
+//   axios
+//     .delete(`https://retoolapi.dev/FlCaNC/posts/${postId}`)
+//     .then((response) => {
+//       // Handle successful deletion
+//       console.log("Post deleted successfully.");
+//     })
+//     .catch((error) => {
+//       // Handle error
+//       console.error("Error deleting post:", error);
+//     });
+//   message.success("Clicked on Yes");
+// };
 const cancel = (e) => {
   console.log(e);
   message.error("Clicked on No");
 };
 
-function SubjectsCompo({ stand }) {
-  // const [subjects,setSubjects] = useState([]);
+function SubjectsCompo() {
 
-  // useEffect(() => {
-
-  // }, []);
 
   const { subject } = useContext(addSubContext);
-  const [posts, setPosts] = useState([]);
+
   const { removeSub } = useContext(addSubContext);
-  useEffect(() => {
-    axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
-      setPosts(response.data);
-    });
-  }, [posts]);
 
   const navigate = useNavigate();
+  //getting data from local storage
   const a = JSON.parse(window.localStorage.getItem("subject"));
   const b = window.localStorage.getItem("dynamic");
-
+  
   for (let i = 0; i < a.length; i++) {
     if (a[i].standard === b) {
       return (
