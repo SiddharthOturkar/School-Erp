@@ -8,14 +8,17 @@ function SubjectTable() {
   useEffect(() => {
     const studentRoll = JSON.parse(localStorage.getItem("student"));
     const marksData = JSON.parse(localStorage.getItem("marks"));
-
-    setData(marksData);
+    const dynamic = window.localStorage.getItem("dynamic");
+    const datajson = marksData.filter((student1) => student1.std === dynamic);
+    // setData(marksData);
+    setData(datajson);
     setStudentData(studentRoll);
   }, []);
 
-  const len = studentData.length;
-
-  const uniqueSubNames = Array.from(new Set(data.map(record => record.subname)));
+  // const len = studentData.length;
+  const len = data.length;
+  
+  const uniqueSubNames = Array.from(new Set(data.filter((studentName)=>studentName.std ===window.localStorage.getItem("dynamic") ).map(record => record.subname)));
 
   const filteredData = uniqueSubNames.map(subname => {
     const matchingRecords = data.filter(record => record.subname === subname);
@@ -24,9 +27,10 @@ function SubjectTable() {
     return {
       subname: subname,
       total: totalMarks,
-      marksget: sortedMarks[0]?.marksget || "-",
-      marksSecHigh: sortedMarks[1]?.marksget || "-",
-      marksThiHigh: sortedMarks[2]?.marksget || "-",
+      // marksget: sortedMarks[0]?.marksget || "-",
+      marksget: sortedMarks[0]?.stdname || "-",
+      marksSecHigh: sortedMarks[1]?.stdname || "-",
+      marksThiHigh: sortedMarks[2]?.stdname || "-",
     };
   });
 

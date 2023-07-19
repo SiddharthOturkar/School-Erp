@@ -6,33 +6,34 @@ import "./AddsubModal.css"
 import { PlusOutlined } from '@ant-design/icons/lib/icons'
 
 
-function AddsubModal() {
+function AddsubModal({title}) {
   const { addSub } = useContext(addSubContext);
   // const [subjects, setSubjects] = useState([]);
   const [subjectName, setSubjectName] = useState([]);
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
-      setPosts(response.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
+  //     setPosts(response.data);
+  //   });
+  // }, []);
 
   const handleSubmit = () => {
     addSub(subjectName) //using context
     console.log(subjectName);
     setSubjectName('') //clearing the input field
+    setModal2Open(false);
     // axios api request to post data
-    axios.post('https://retoolapi.dev/FlCaNC/posts', { title: subjectName })
-      .then(response => {
-        // Handle successful response
-        console.log('Subject added successfully');
-        setModal2Open(false);
-      })
-      .catch(error => {
-        // Handle error
-        console.error('Error adding subject:', error);
-      });
+    // axios.post('https://retoolapi.dev/FlCaNC/posts', { title: subjectName })
+    //   .then(response => {
+    //     // Handle successful response
+    //     console.log('Subject added successfully');
+    //     setModal2Open(false);
+    //   })
+    //   .catch(error => {
+    //     // Handle error
+    //     console.error('Error adding subject:', error);
+    //   });
   };
 
   const [modal2Open, setModal2Open] = useState(false);
@@ -57,6 +58,7 @@ function AddsubModal() {
             <Input
               type="text"
               name="title"
+              standard= {title}
               value={subjectName}
               onChange={(e) => setSubjectName(e.target.value)}
               placeholder="Enter a new subject"

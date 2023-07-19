@@ -1,5 +1,5 @@
 .App-header {
-    background-color: #DFDFDF;
+    background-color: #fff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -9,8 +9,13 @@
     color: black;
   
   }
+  .main_head
+{
+    padding-bottom: 20px;
+}
 .StandardDiv
 {
+   
     width: 50%;
     margin: 0 200 0 200;
     text-align: center;
@@ -18,6 +23,7 @@
 }
 .StandardName
 {
+    background-color: #DFDFDF;
     font-size: 30px;
 }
 .SecondRow

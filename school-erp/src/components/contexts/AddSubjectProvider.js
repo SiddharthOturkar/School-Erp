@@ -9,12 +9,13 @@ function AddSubjectProvider(props) {
     return localData ? JSON.parse(localData) : [];
     });
 
-    const addSub = (title) =>{
+    const addSub = (title,standard) =>{
         setSub([
             ...subject,
             {
             title: title,
-            id: Math.random()
+            id: Math.random(),
+            standard:window.localStorage.getItem("dynamic"),
             }
         ]);
     };

@@ -19,7 +19,9 @@ function AddStudentProvider(props) {
             {
                 name:name,
                 roll:roll,
-                id:Math.random()
+                id:Math.random(),
+                std : window.localStorage.getItem("dynamic")
+
             }
         ]);
         console.log(student);
@@ -32,7 +34,9 @@ function AddStudentProvider(props) {
                 stdname:stdname,
                 subname:subname,
                 marksget: marksget,
-                id:Math.random()
+                id:Math.random(),
+                std : window.localStorage.getItem("dynamic")
+
             }
         ])
 

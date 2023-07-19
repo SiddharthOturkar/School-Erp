@@ -34,5 +34,11 @@
 .dashboard
 {
     background-color: rgb(77, 118, 207);
-    
+    color: #fff;    
 }
+
+/* .hrline
+{
+    margin-bottom: 10px;
+    color: black;
+} */

@@ -1,0 +1,141 @@
+[
+  {
+    "id": "1",
+    "std": "Class 4",
+    "sub": "Hindi"
+  },
+  {
+    "id": "2",
+    "std": "Class 4",
+    "sub": "English"
+  },
+  {
+    "id": "3",
+    "std": "Class 4",
+    "sub": "Maths"
+  },
+  {
+    "id": "4",
+    "std": "Class 4",
+    "sub": "Science"
+  },
+  {
+    "id": "5",
+    "std": "Class 4",
+    "sub": "Social Studies"
+  },
+
+  {
+    "id": "6",
+    "std": "Class 5",
+    "sub": "Hindi"
+  },
+  {
+    "id": "7",
+    "std": "Class 5",
+    "sub": "English"
+  },
+  {
+    "id": "8",
+    "std": "Class 5",
+    "sub": "Environmental Science"
+  },
+  {
+    "id": "9",
+    "std": "Class 5",
+    "sub": "Computer"
+  },
+  {
+    "id": "10",
+    "std": "Class 5",
+    "sub": "Maths"
+  },
+
+
+  {
+    "id": "11",
+    "std": "Class 6",
+    "sub": "Mathematics"
+  },
+  {
+    "id": "12",
+    "std": "Class 6",
+    "sub": "English"
+  },
+  {
+    "id": "13",
+    "std": "Class 6",
+    "sub": "Social Science"
+  },
+  {
+    "id": "14",
+    "std": "Class 6",
+    "sub": "Science"
+  },
+  {
+    "id": "15",
+    "std": "Class 7",
+    "sub": "Maths"
+  },
+  {
+    "id": "16",
+    "std": "Class 7",
+    "sub": "English"
+  },
+  {
+    "id": "17",
+    "std": "Class 7",
+    "sub": "Social Science"
+  },
+  {
+    "id": "18",
+    "std": "Class 7",
+    "sub": "Science"
+  },
+  {
+    "id": "19",
+    "std": "Class 8",
+    "sub": "Mathematics"
+  },
+  {
+    "id": "20",
+    "std": "Class 8",
+    "sub": "English Balbharati"
+  },
+  {
+    "id": "21",
+    "std": "Class 8",
+    "sub": "General Science"
+  },
+  {
+    "id": "22",
+    "std": "Class 8",
+    "sub": "History and Civics"
+  },
+  {
+    "id": "23",
+    "std": "Class 8",
+    "sub": "Geography"
+  },
+  {
+    "id": "24",
+    "std": "Class 9",
+    "sub": "History and Civics"
+  },
+  {
+    "id": "25",
+    "std": "Class 9",
+    "sub": "Science and Technology"
+  },
+  {
+    "id": "26",
+    "std": "Class 9",
+    "sub": "Marathi"
+  },
+  {
+    "id": "27",
+    "std": "Class 9",
+    "sub": "English"
+  }
+]
+

@@ -42,6 +42,9 @@
     font-weight: bold;
     
 }
+.mainfields:required {
+    border-color: black;
+  }
 .inputcss
 {
     position: relative;
