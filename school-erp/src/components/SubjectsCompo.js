@@ -40,37 +40,35 @@ const contentStyle = {
   backgroundColor: "#fff",
 };
 
-// const confirm = (postId) => {
-//   // console.log(e);
-//   axios
-//     .delete(`https://retoolapi.dev/FlCaNC/posts/${postId}`)
-//     .then((response) => {
-//       // Handle successful deletion
-//       console.log("Post deleted successfully.");
-//     })
-//     .catch((error) => {
-//       // Handle error
-//       console.error("Error deleting post:", error);
-//     });
-//   message.success("Clicked on Yes");
-// };
+// Function to handle cancel in Popconfirm
 const cancel = (e) => {
   console.log(e);
   message.error("Clicked on No");
 };
 
-function SubjectsCompo() {
+function SubjectsCompo({ stand }) {
+  // const [subjects,setSubjects] = useState([]);
 
+  // useEffect(() => {
 
+  // }, []);
+
+  // Using Context to access subject data and removeSub function
   const { subject } = useContext(addSubContext);
-
+  const [posts, setPosts] = useState([]);
   const { removeSub } = useContext(addSubContext);
+  useEffect(() => {
+    // Fetching subject data using Axios
+    axios.get("https://retoolapi.dev/FlCaNC/posts").then((response) => {
+      setPosts(response.data);
+    });
+  }, [posts]);
 
   const navigate = useNavigate();
-  //getting data from local storage
   const a = JSON.parse(window.localStorage.getItem("subject"));
   const b = window.localStorage.getItem("dynamic");
-  
+
+  // Rendering subjects based on the standard selected
   for (let i = 0; i < a.length; i++) {
     if (a[i].standard === b) {
       return (
@@ -116,10 +114,13 @@ function SubjectsCompo() {
                 <h2>Core Subjects</h2>
                 <hr />
                 <Space size={[40, "small"]} wrap className="coresub">
-
                   {data.map((i) => {
                     if (i.std === window.localStorage.getItem("dynamic")) {
-                      return <Tag key={i.id} bordered={false}>{i.sub}</Tag>;
+                      return (
+                        <Tag key={i.id} bordered={false}>
+                          {i.sub}
+                        </Tag>
+                      );
                     }
                   })}
                 </Space>
@@ -137,8 +138,7 @@ function SubjectsCompo() {
                           <Popconfirm
                             title="Delete the task"
                             description="Delete this subject..Are you sure? "
-                            // onConfirm={() => confirm(post.id)} //using api
-                            onConfirm={() => removeSub(post.id)} //using context
+                            onConfirm={() => removeSub(post.id)}
                             onCancel={cancel}
                             okText="Yes"
                             cancelText="No"
@@ -164,6 +164,7 @@ function SubjectsCompo() {
       );
     }
   }
+  // If no subjects are found for the selected standard
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
       <Layout>
@@ -209,7 +210,11 @@ function SubjectsCompo() {
             <Space size={[40, "small"]} wrap className="coresub">
               {data.map((i) => {
                 if (i.std === window.localStorage.getItem("dynamic")) {
-                  return <Tag bordered={false}>{i.sub}</Tag>;
+                  return (
+                    <Tag key={i.id} bordered={false}>
+                      {i.sub}
+                    </Tag>
+                  );
                 }
               })}
             </Space>

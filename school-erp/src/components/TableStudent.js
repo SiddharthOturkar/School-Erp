@@ -2,30 +2,41 @@ import { Table } from "antd";
 import React, { useEffect, useState } from "react";
 
 function TableStudent() {
+  // States to store data fetched from localStorage
   const [data, setData] = useState([]);
   const [studentData, setStudentData] = useState([]);
 
+  // Fetching data from localStorage on component mount
   useEffect(() => {
     const studentRoll = JSON.parse(localStorage.getItem("student"));
     const marksData = JSON.parse(localStorage.getItem("marks"));
 
+    // Update states with data from localStorage
     setData(marksData);
     setStudentData(studentRoll);
   }, []);
 
-  // {student
-  //   .filter((student) => student.std === window.localStorage.getItem("dynamic"))
-  //   .map((student) => ({
-  //     value: student.name,
-  //     label: student.name,
-  //   }))
-  const uniqueStudentNames = Array.from(new Set(data.filter((studentName)=>studentName.std ===window.localStorage.getItem("dynamic") ).map(record => record.stdname)));
+  // Get unique student names for the given standard
+  const uniqueStudentNames = Array.from(
+    new Set(
+      data
+        .filter(
+          (studentName) =>
+            studentName.std === window.localStorage.getItem("dynamic")
+        )
+        .map((record) => record.stdname)
+    )
+  );
 
-  const filteredData = uniqueStudentNames.map(studentName => {
-    const matchingRecord = data.find(record => record.stdname === studentName);
+  // Prepare data for the table by filtering out duplicate records based on student name
+  const filteredData = uniqueStudentNames.map((studentName) => {
+    const matchingRecord = data.find(
+      (record) => record.stdname === studentName
+    );
     return matchingRecord;
   });
 
+  // Columns for the table
   const columns = [
     {
       title: "Student Name",
@@ -45,7 +56,9 @@ function TableStudent() {
         );
 
         if (matchingStudent) {
-          return <h3 style={{ fontWeight: "normal" }}>{matchingStudent.roll}</h3>;
+          return (
+            <h3 style={{ fontWeight: "normal" }}>{matchingStudent.roll}</h3>
+          );
         }
         return null;
       },
@@ -54,7 +67,6 @@ function TableStudent() {
       title: "Total Marks",
       dataIndex: "marksget",
       key: "marksget",
-
       render: (text, record) => {
         const totalMarks = data.reduce((total, curr) => {
           if (curr.stdname === record.stdname) {
@@ -70,16 +82,14 @@ function TableStudent() {
 
   return (
     <Table
-      columns={columns} 
+      columns={columns}
       dataSource={filteredData}
       size="small"
       bordered
       pagination={false}
-      style={{ textAlign: "center", width: '50%', paddingLeft: 50 }}
+      style={{ textAlign: "center", width: "50%", paddingLeft: 50 }}
     />
   );
 }
 
 export default TableStudent;
-
-
