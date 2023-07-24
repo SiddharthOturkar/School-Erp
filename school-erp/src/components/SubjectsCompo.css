@@ -3,102 +3,92 @@
     border: 1px solid black;
     height: 100vh;
 } */
-.siderStyle 
-{
-    font-size: 30px;
-    font-weight: bold;
-    border: 1px solid black; 
-}
-.Schoolerp
-{
-    height: 90px;
-}
-.siderStyle h4
-{
-    color: white;
-    background-color: black;
-    margin-top: -30px;
+.mainfields {
+  margin-left: 40px;
+  font-weight: bold;
 }
 
-.headerStyle
-{
-    display: flex;
-    flex-direction: row;
-    font-weight: bold;
-    font-size: 20px;
-
-}
-.subbtn
-{
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-.subjects
-{
-    background-color: rgb(77, 118, 207);
+.mainfields:required {
+  color: violet;
 }
 
-.contentStyle
-{
-    padding-left: 40px;
+.siderStyle {
+  font-size: 30px;
+  font-weight: bold;
+  border: 1px solid black;
 }
-.contentStyle h2 
-{
-    margin-top: -20px;
-    margin-bottom: -40px;
+.Schoolerp {
+  height: 90px;
 }
-
-.coresub .ant-tag
-{
-    font-size: 20px;
-    padding: 10px;
-    border: 1px solid black;
+.siderStyle h4 {
+  color: white;
+  background-color: black;
+  margin-top: -30px;
 }
 
-
-.contentStyle
-{
-    padding-left: 40px;
+.headerStyle {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 20px;
 }
-.contentStyle1 h2 
-{
-    margin-top: -20px;
-    margin-bottom: -40px;
+.subbtn {
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
-
-.contentStyle1 h2 
-{
-    margin-top: -20px;
-    margin-bottom: -40px;
+.subjects {
+  background-color: rgb(77, 118, 207);
 }
 
-.additionalsub .ant-tag
-{
-    font-size: 20px;
-    padding: 10px;
-    border: 1px solid black;
+.contentStyle {
+  padding-left: 40px;
+}
+.contentStyle h2 {
+  margin-top: -20px;
+  margin-bottom: -40px;
 }
 
-.placeholder1
-{
-    text-align: center;
-    color: grey;
-    font-size: 20px;
+.coresub .ant-tag {
+  font-size: 20px;
+  padding: 10px;
+  border: 1px solid black;
 }
-.subList
-{
-    display: flex;  
-    flex-wrap: wrap;
-    gap: 40px;
-    list-style-type: none;
-    margin-left: -40px;
+
+.contentStyle {
+  padding-left: 40px;
 }
-.students
-{
-    color: #fff;
+.contentStyle1 h2 {
+  margin-top: -20px;
+  margin-bottom: -40px;
 }
-.subjects
-{
-    color: #fff;
+
+.contentStyle1 h2 {
+  margin-top: -20px;
+  margin-bottom: -40px;
+}
+
+.additionalsub .ant-tag {
+  font-size: 20px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.placeholder1 {
+  text-align: center;
+  color: grey;
+  font-size: 20px;
+}
+.subList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  list-style-type: none;
+  margin-left: -40px;
+}
+.students {
+  color: #fff;
+}
+.subjects {
+  color: #fff;
 }

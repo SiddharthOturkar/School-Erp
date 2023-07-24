@@ -89,7 +89,13 @@ function StudentsCompo() {
 
   // Method for adding marks, student name, and subject
   const handleAllData = (e) => {
-    if (selectedStudent != null && marksAdd > 0 && selectedOption != null) {
+    // console.log(e);
+    if (
+      selectedStudent != null &&
+      marksAdd > 0 &&
+      marksAdd <= 100 &&
+      selectedOption != null
+    ) {
       addStudDetails(selectedStudent, selectedOption, marksAdd);
       setDisableRules(true);
       console.log(disableRules);
@@ -129,18 +135,20 @@ function StudentsCompo() {
   };
 
   // Method to handle adding a new student
-  const handleAdd = () => {
+
+  const onFinish = (values) => {
+    console.log(values);
     if (name != null && roll > 0) {
       addStud(name, roll);
-      setDisableRules(true);
+      // setDisableRules(true);
       console.log(disableRules);
       message.success("Student added successfully");
       form.resetFields();
-      setDisableRules(false);
+      // setDisableRules(false);
       setName("");
       setRoll("");
     } else {
-      setDisableRules(false);
+      // setDisableRules(false);
       message.warning("Add all details");
       console.log(name);
       console.log(roll);
@@ -190,36 +198,29 @@ function StudentsCompo() {
                 key="add-students"
                 className="maindiv"
               >
-                <Form form={form}>
+                <Form form={form} onFinish={onFinish}>
                   <Form.Item
                     label="Student Name"
                     name="title"
-                    htmlFor="studentName"
+                    // htmlFor="studentName"
+                    htmlFor="title"
                     className="mainfields"
-                    rules={
-                      disableRules
-                        ? [
-                            {
-                              message:
-                                "Please enter student name and try again",
-                            },
-                          ]
-                        : [
-                            {
-                              required: true,
-                              message: (
-                                <span style={{ marginLeft: 40 }}>
-                                  Please enter student name and try again
-                                </span>
-                              ),
-                            },
-                          ]
-                    }
+                    rules={[
+                      {
+                        required: true,
+                        message: (
+                          <h4 style={{ marginLeft: 40 }}>
+                            Enter student name and try again
+                          </h4>
+                        ),
+                      },
+                    ]}
                   >
                     <Input
                       id="studentName"
                       type="text"
                       name="enteredUsername"
+                      htmlFor="enteredUsername"
                       size="small"
                       className="inputcss"
                       placeholder="Enter Student Name"
@@ -231,20 +232,16 @@ function StudentsCompo() {
                     label="Roll No"
                     name="body"
                     className="mainfields"
-                    rules={
-                      disableRules
-                        ? []
-                        : [
-                            {
-                              required: true,
-                              message: (
-                                <span style={{ marginLeft: 90 }}>
-                                  Please enter a valid roll no and try again
-                                </span>
-                              ),
-                            },
-                          ]
-                    }
+                    rules={[
+                      {
+                        required: true,
+                        message: (
+                          <h4 style={{ marginLeft: 85 }}>
+                            Please enter a valid roll no and try again
+                          </h4>
+                        ),
+                      },
+                    ]}
                   >
                     <Input
                       className="inputcss1"
@@ -260,7 +257,8 @@ function StudentsCompo() {
                     <Button
                       type="primary"
                       className="addbtn"
-                      onClick={handleAdd}
+                      htmlType="submit"
+                      // onClick={handleAdd}
                     >
                       ADD
                     </Button>
@@ -273,6 +271,7 @@ function StudentsCompo() {
                   <Form.Item
                     label="Select a Student"
                     name="studentName"
+                    htmlFor="studentName"
                     className="mainfields"
                   >
                     <Select
@@ -308,6 +307,7 @@ function StudentsCompo() {
                   <Form.Item
                     label="Select a Subject"
                     name="subjectName"
+                    htmlFor="subjectName"
                     className="mainfields"
                   >
                     <Select
@@ -335,6 +335,7 @@ function StudentsCompo() {
                   <Form.Item
                     label="Enter Marks"
                     name="marks"
+                    htmlFor="marks"
                     className="mainfields"
                     rules={
                       disableRules
@@ -357,10 +358,13 @@ function StudentsCompo() {
                   >
                     <Input
                       type="number"
+                      name="num"
+                      htmlFor="num"
                       min={0}
                       max={100}
                       className="inputcss2"
                       value={marksAdd}
+                      required
                       onChange={(e) => setmarksAdd(e.target.value)}
                       onKeyDown={handleSubmitData}
                     />
@@ -368,7 +372,7 @@ function StudentsCompo() {
                   <Form.Item>
                     <Button
                       type="primary"
-                      htmlType="button"
+                      htmlType="submit"
                       className="addbtn"
                       onClick={handleAllData}
                     >
